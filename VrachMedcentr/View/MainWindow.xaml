@@ -227,9 +227,11 @@
                         <Image  Source="{Binding ConnectionImage}" >                            
                         </Image>
                     </StackPanel>
-                    <!--<Button Visibility="Hidden" Margin="15,5,15,0" Padding="5" Grid.Row="0" UseLayoutRounding="True"  Style="{DynamicResource ButtonGreen}" Command="{Binding ElementName=Registratyra,Path=DataContext.confUser}" CommandParameter="{Binding}"  FontSize="14"  Content="Підтвердження користувачів"  />
+                    <Button Visibility="Hidden" Margin="15,5,15,0" Padding="5" Grid.Row="0" UseLayoutRounding="True"  Style="{DynamicResource ButtonGreen}"
+                            Command="{Binding ElementName=Registratyra,Path=DataContext.confUser}"
+                            CommandParameter="{Binding}"  FontSize="14"  Content="Підтвердження користувачів"  />
 
-                    <TextBlock Grid.Row="3" FontSize="15" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding InternetConnection}" ></TextBlock>-->
+                    <TextBlock Grid.Row="3" FontSize="15" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding InternetConnection}" ></TextBlock>
                     <!--<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Text="Підсумковий результат:" FontWeight="Bold"/>
                             <StackPanel Grid.Row="1" Orientation="Vertical">
                                 <TextBlock FontSize="15" TextAlignment="Left" VerticalAlignment="Center" Text="Лікар:" />
