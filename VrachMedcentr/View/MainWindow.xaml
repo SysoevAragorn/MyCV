@@ -1,0 +1,483 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"            
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wpf="http://wpfcontrols.com/"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:local="clr-namespace:WPF_Hospital"
+        xmlns:local1="clr-namespace:VrachMedcentr"
+        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
+    
+         xmlns:helpers="clr-namespace:VrachMedcentr.HelpersClass.MyHalpers"
+   
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+    xmlns:local2="clr-namespace:WaterMarkTextBoxDemo" x:Class="WPF_Hospital.MainWindow"
+        mc:Ignorable="d"
+        Title="Клієнт для роботи з реєстратурою та лікарем - ЦРЛ №4"  Height="900" Width="1280"  WindowStyle="SingleBorderWindow" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="brushWatermarkBackground" Color="White" />
+        <SolidColorBrush x:Key="brushWatermarkForeground" Color="LightSteelBlue" />
+        <SolidColorBrush x:Key="brushWatermarkBorder" Color="Indigo" />
+
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <local2:TextInputToVisibilityConverter x:Key="TextInputToVisibilityConverter" />
+
+        <Style x:Key="EntryFieldStyle" TargetType="Grid" >
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="0,0" />
+        </Style>
+
+    </Window.Resources>
+
+    <Grid x:Name="Registratyra"  Background="#FFE5E5E5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"/>
+            <ColumnDefinition Width="0.7*"/>
+
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="0.65*"/>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="0.45*"/>
+            </Grid.RowDefinitions>
+            <!--<TreeView Grid.Row="0"  Grid.RowSpan="2" x:Name="Reg"  TreeViewItem.Selected="Regis_Selected" ItemsSource="{Binding ListOfDoc}"  >
+                        <TreeView.ItemTemplate  >
+                            
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Likar}">
+                           
+                                <TextBlock FontSize="25" Text="{Binding specf}"/>
+                                
+                                <HierarchicalDataTemplate.ItemTemplate  >
+
+                                    <HierarchicalDataTemplate >
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock  FontSize="20" Text="{Binding  docName}"  VerticalAlignment="Center"/>
+                                            <CheckBox FontSize="20" ToolTip="Подсказка" IsChecked="{Binding docBool}" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+
+
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+
+                    </TreeView>-->
+            <!--<ListView  ItemsSource="{Binding ListOfDoc}" Grid.Row="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate >
+                                <StackPanel >
+                                    <TextBlock Text="{Binding Path=specf}"/>
+
+
+
+                                </StackPanel>
+
+                            </DataTemplate>
+
+                        </ListBox.ItemTemplate>
+                    </ListView>-->
+            <!--<ListView  ItemsSource="{Binding ListOfDoc}" Grid.Row="1">
+                        <ListView.ItemTemplate>
+                            
+                        </ListView.ItemTemplate>
+                       
+                    </ListView>-->
+            <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"><Run Text="Вибір спеціальності"/></TextBlock>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22"><Run Text="Вибір лікаря"/></TextBlock>
+
+            <ListBox Grid.Row="1"  SelectedItem="{Binding SelectedSpecf}" ItemsSource="{Binding ListOfSpecf}" >
+                <!--<ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Спеціальність"  DisplayMemberBinding="{Binding specf}" />
+                                <GridViewColumn Header="Прізвище"   DisplayMemberBinding="{Binding Likar}" />
+                            </GridView>
+                        </ListView.View>-->
+                <ListBox.ItemTemplate>
+                    <DataTemplate >
+                        <StackPanel >
+                            <TextBlock FontSize="20" Text="{Binding specf}"/>
+
+
+                            <!--<ItemsControl ItemsSource="{Binding Likar}">
+                                        <ItemsControl.ItemTemplate >
+                                            <HierarchicalDataTemplate>
+                                                <StackPanel Margin="15,0,0,0" Orientation="Horizontal">
+                                                    <TextBlock  FontSize="20" Text="{Binding docName }" VerticalAlignment="Center"/>
+                                                    <CheckBox  FontSize="20" IsChecked="{Binding docBool }" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                            </HierarchicalDataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>-->
+
+                        </StackPanel>
+
+                    </DataTemplate>
+
+                </ListBox.ItemTemplate>
+                <!--<ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontWeight="Bold" FontSize="25" Text="{Binding specf}"/>
+                                    </DataTemplate>
+
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>-->
+            </ListBox>
+
+            <!--<TreeView Grid.Row="0"  x:Name="Reg"  TreeViewItem.Selected="Regis_Selected" ItemsSource="{Binding ListOfDoc}"  >
+                        <TreeView.ItemTemplate  >
+                            
+                            <HierarchicalDataTemplate  ItemsSource="{Binding Likar}">
+                           
+                                <TextBlock FontSize="25" Text="{Binding specf}"/>
+                           
+                              
+                                <HierarchicalDataTemplate.ItemTemplate  >
+                                    
+                                    <HierarchicalDataTemplate >
+                                        <StackPanel Orientation="Horizontal" >
+                                            <TextBlock  FontSize="20" Text="{Binding docName}" VerticalAlignment="Center"/>
+                                            <CheckBox FontSize="20" ToolTip="Подсказка" IsChecked="{Binding docBool}" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                                        </StackPanel>
+                                    </HierarchicalDataTemplate>
+                                </HierarchicalDataTemplate.ItemTemplate>
+
+                            </HierarchicalDataTemplate>
+                        </TreeView.ItemTemplate>
+
+                    </TreeView>-->
+            <ListBox x:Name="Reg2" Grid.Row="3"  SelectedItem="{Binding SelectedDocNames, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding ListOfDocNames}" >
+
+
+                <ListBox.ItemTemplate >
+
+                    <HierarchicalDataTemplate ItemsSource="{Binding Likar}" >
+                        <StackPanel Margin="15,0,0,0" Orientation="Horizontal">
+                            <TextBlock  FontSize="20" Text="{Binding docName}" VerticalAlignment="Center"/>
+                            <!--<CheckBox  FontSize="20" IsChecked="{Binding docBool }" VerticalAlignment="Center"/>-->
+                        </StackPanel>
+                        <HierarchicalDataTemplate.ItemTemplate  >
+                            <HierarchicalDataTemplate>
+
+                                <!--<StackPanel Margin="15,0,0,0" Orientation="Horizontal">
+                                            <TextBlock  FontSize="20" Text="{Binding docName }" VerticalAlignment="Center"/>
+                                            <CheckBox  FontSize="20" IsChecked="{Binding docBool }" VerticalAlignment="Center"/>
+                                        </StackPanel>-->
+
+
+                            </HierarchicalDataTemplate>
+                        </HierarchicalDataTemplate.ItemTemplate>
+
+
+
+                    </HierarchicalDataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding specf}" FontWeight="Bold"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListBox.GroupStyle>
+            </ListBox>
+        </Grid>
+        <!--<TextBox  Text="{Binding docIdBackup}"   HorizontalAlignment="Left"  VerticalAlignment="Top" Height="76" Width="123"/>-->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.3*"/>
+                <RowDefinition Height="0.5*"/>
+
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="0.04*"/>
+                    <RowDefinition Height="0.25*"/>
+                    <RowDefinition Height="0.08*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <!--<ColumnDefinition Width="0.3*"/>-->
+                </Grid.ColumnDefinitions>
+                <Grid Margin="5,0,0,0" Grid.Column="2" Grid.Row="0" Grid.RowSpan="2" DataContext ="{Binding con}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Image  Source="{Binding ConnectionImage}" >                            
+                        </Image>
+                    </StackPanel>
+                    <!--<Button Visibility="Hidden" Margin="15,5,15,0" Padding="5" Grid.Row="0" UseLayoutRounding="True"  Style="{DynamicResource ButtonGreen}" Command="{Binding ElementName=Registratyra,Path=DataContext.confUser}" CommandParameter="{Binding}"  FontSize="14"  Content="Підтвердження користувачів"  />
+
+                    <TextBlock Grid.Row="3" FontSize="15" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding InternetConnection}" ></TextBlock>-->
+                    <!--<TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Text="Підсумковий результат:" FontWeight="Bold"/>
+                            <StackPanel Grid.Row="1" Orientation="Vertical">
+                                <TextBlock FontSize="15" TextAlignment="Left" VerticalAlignment="Center" Text="Лікар:" />
+                                <TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedDocNames.docName}" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Orientation="Vertical">
+                                <TextBlock FontSize="15" TextAlignment="Left" VerticalAlignment="Center" Text="Паціент:" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding ComboboxText, UpdateSourceTrigger=PropertyChanged}" />
+                                    <TextBlock Text=" "/>
+                                    <TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedFIO, UpdateSourceTrigger=PropertyChanged}" />
+                                </StackPanel>
+
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Orientation="Vertical">
+                                <TextBlock FontSize="15" TextAlignment="Left" VerticalAlignment="Center" Text="Дата/Час:" />
+                                <StackPanel Orientation="Horizontal">
+
+                                    <TextBlock FontSize="15" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding SelectedTime.Time}" />
+                                </StackPanel>
+
+                            </StackPanel>-->
+                </Grid>
+                <!--<Button x:Name="Update" Grid.Column="2" Grid.Row="1" Content="Update" Command="{Binding downloadPacket}" Style="{DynamicResource ButtonGreen}" />-->
+                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Grid.Row="0" Grid.Column="1">
+                    <TextBlock  FontSize="15" VerticalAlignment="Bottom" ><Run Text="Час прийому лікаря:"/></TextBlock>
+                    <!--<TextBlock  FontSize="15" VerticalAlignment="Bottom" Margin="0,0,0,0">По годинам/ По талонам</TextBlock>-->
+                </StackPanel>
+                <Grid  Grid.Column="1" Grid.Row="1" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Grid.Row="0" ItemsSource="{Binding DoctorTimes , UpdateSourceTrigger=PropertyChanged}" Margin="0,5,0,5"
+                 SelectedItem="{Binding SelectedTime}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Foreground="{Binding Status}"  FontSize="18" Text="{Binding Label, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" FontSize="18" Text="{Binding TimeProperties, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"/>
+
+                                </Grid>
+                                <!--<StackPanel Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
+                                        </StackPanel>-->
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <!--<Button Margin="15,5,15,0" Grid.Row="1" UseLayoutRounding="True"  Style="{DynamicResource ButtonOrange}" Command="{Binding EditTimes}"  FontSize="14" Padding="5" Content="Редагувати розклад лікаря" />-->
+                    <Button Grid.Row="1" Margin="15,5,15,0" Padding="5"  UseLayoutRounding="True"  Style="{DynamicResource ButtonGreen}" Command="{Binding ElementName=Registratyra,Path=DataContext.confUser}" CommandParameter="{Binding}"  FontSize="14"  Content="Підтвердження користувачів"  />
+
+
+                </Grid>
+                <TextBlock Grid.Row="0" Grid.Column="0" FontSize="15" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="5,0,0,0"><Run Text="Дата прийому лікаря:"/></TextBlock>
+                <Grid  Grid.Row="1" Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition Height="0.2*"/>
+                    </Grid.RowDefinitions>
+
+                    <Calendar    SelectedDate="{Binding DateDoctorAcepting}" DisplayDate="{Binding DateDoctorAcepting}"  
+                                         
+                                   helpers:HolidayHelper.List ="{Binding WorkingDays}"          
+                                   Style="{DynamicResource MyCalendar}"
+                                   CalendarButtonStyle="{DynamicResource MyCalendarButtonStyle}"
+                                   CalendarDayButtonStyle="{DynamicResource MyCalendarDayButtonStyle}"
+                                   CalendarItemStyle="{DynamicResource MyCalendarItem}"
+                                >
+
+                    </Calendar>
+
+                    <Button Margin="15,5,15,0" Padding="5" Grid.Row="1" UseLayoutRounding="True"  Style="{DynamicResource ButtonOrange}" Command="{Binding editDays}"  FontSize="14"  Content="Редагувати робочі дні"  />
+                </Grid>
+
+
+
+
+                <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                        <TextBlock Margin="10,0,0,0" FontSize="15" VerticalAlignment="Bottom"><Run Text="Прізвище, Ім'я, По батькові Пацієнта"/></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5,0,0,0">
+                        <ComboBox Grid.Column="0" IsEditable="True"  IsTextSearchCaseSensitive="False"  
+                                          IsTextSearchEnabled="False" Text="{Binding ComboboxText, UpdateSourceTrigger=PropertyChanged}"  
+                                          IsDropDownOpen="{Binding ComboBoxDropDown}"  SelectedItem="{Binding SelectedFIO}"  ItemsSource="{Binding Users, UpdateSourceTrigger=PropertyChanged}" 
+                                          MinWidth="300" FontSize="15" VerticalAlignment="Center" Margin="5,0,5,0">
+                        </ComboBox>
+                        <Button Grid.Column="1" UseLayoutRounding="True"  Style="{DynamicResource ButtonBlue}" 
+                                        Command="{Binding Conf}"  FontSize="14" Padding="5"  Margin="5,0,5,0" Content="Записати на прийом"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+
+            </Grid>
+            <ListBox Grid.Row="1" Margin="0,5,5,0"  SelectedItem="{Binding SSelectedUser,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding Appointments, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <ListBox.Template>
+                    <ControlTemplate>
+                        <DockPanel LastChildFill="True"  >
+                            <Grid DockPanel.Dock="Top"  Height="30">
+                                <Grid.ColumnDefinitions >
+                                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Margin="10,0,0,0" FontSize="20" Background="#8FC1E5" Foreground="White" VerticalAlignment="Center" Grid.Column="0">№</TextBlock>
+                                <TextBlock  Margin="10,0,0,0" FontSize="20" Background="#8FC1E5" Foreground="White" VerticalAlignment="Center" Grid.Column="1">ПІБ</TextBlock>
+                                <TextBlock  Margin="10,0,0,0" FontSize="20"  Background="#8FC1E5" Foreground="White" VerticalAlignment="Center" Grid.Column="2">Час</TextBlock>
+                                <TextBlock  Margin="10,0,0,0" FontSize="20" Background="#8FC1E5" Foreground="White" VerticalAlignment="Center" Grid.Column="3">Коментар</TextBlock>
+                                <TextBlock  Margin="10,0,0,0" FontSize="20" Background="#8FC1E5" Foreground="White" VerticalAlignment="Center" Grid.Column="4">Не прийшов</TextBlock>
+                                <TextBlock  Margin="10,0,0,0" FontSize="20" Background="#8FC1E5" Foreground="White" VerticalAlignment="Center" Grid.Column="5">Друк</TextBlock>
+
+                            </Grid>
+
+                            <ItemsPresenter></ItemsPresenter>
+                        </DockPanel>
+                    </ControlTemplate>
+                </ListBox.Template>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.7*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.15*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                                <ColumnDefinition Width="0.1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <!--<TextBlock Grid.Column="0" FontSize="20" Text="№"/>-->
+                            <TextBlock   Margin="10,0,0,0" Grid.Column="0" FontSize="20" Text="{Binding NumberZP}"/>
+                            <!--<TextBlock Grid.Column="1" FontSize="20" Text=" | ПІБ: "/>-->
+                            <TextBlock  Margin="10,0,0,0" Grid.Column="1" FontSize="20" Text="{Binding Pacient}"/>
+                            <!--<TextBlock Grid.Column="2" FontSize="20" Text=" | Час: "/>-->
+                            <TextBlock  Margin="10,0,0,0" Grid.Column="2" FontSize="20" Text="{Binding TimeAppomination}"/>
+                            <!--<TextBlock Grid.Column="3" FontSize="20" Text=" | Коментар: "/>-->
+                            <TextBlock  Margin="10,0,0,0" Grid.Column="3" FontSize="20" Text="{Binding Comment}"/>
+                            <!--<TextBlock Grid.Column="4" FontSize="20" Text=" | Не прийшов: "/>-->
+                            <!--<CheckBox Grid.Column="4" FontSize="20" IsChecked="{Binding NotComing}"/>-->
+                            <!--<TextBlock Grid.Column="5" FontSize="20" Text=" | uID: "/>-->
+                            <!--<TextBlock Margin="10,0,0,0" Grid.Column="5" FontSize="20" Text="{Binding IDUser}"/>-->
+                            <Button Grid.Column="5" Margin="10,0,0,0" Style="{DynamicResource ButtonGreen}"  Command="{Binding ElementName=Registratyra,Path=DataContext.printTalon}" CommandParameter="{Binding}">Друк</Button>
+
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <!--<DataGrid x:Name="datatable" ItemsSource="{Binding localBD}"  Margin="-380,136,0,10" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Grid.Row="1" HorizontalAlignment="Left" Width="557"/>
+            <DataGrid x:Name="datatable_Copy" ItemsSource="{Binding siteBD}"  Margin="266,136,10,10" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Grid.Row="1"/>
+            <DataGrid x:Name="datatable_Copy1" ItemsSource="{Binding resultBD}"  Margin="-129,55,239,448" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Visible" Grid.RowSpan="2"/>-->
+            <!--<DataGrid  Margin="0,10,0,0" FontSize="15" Foreground="White" Grid.Row="1"   
+                               AutoGenerateColumns="False" ItemsSource="{Binding Appointments}" Style="{DynamicResource GrayDataGrid}" 
+                               CellStyle="{DynamicResource GrayDataGridCellStyle}" RowStyle="{DynamicResource GrayGridRowStyle}" SelectedValue="{Binding SSelectedUser}" SelectedItem="{Binding SSelectedUser}" RowHeaderStyle="{DynamicResource GrayDataGridRowHeaderStyle}" 
+                               ColumnHeaderStyle="{DynamicResource GrayDataGridColumnHeaderStyle}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn FontSize="20" Binding="{Binding NumberZP}" ClipboardContentBinding="{x:Null}" Header="№ з/п"/>
+                            <DataGridTextColumn FontSize="20" Binding="{Binding Pacient}" ClipboardContentBinding="{x:Null}" Header="Пацієнт"/>
+                            <DataGridTextColumn FontSize="20" Binding="{Binding TimeAppomination}" ClipboardContentBinding="{x:Null}" Header="Час прийому"/>
+                            <DataGridTextColumn FontSize="20" Binding="{Binding Comment}" ClipboardContentBinding="{x:Null}" Header="Примітка"/>
+                            <DataGridCheckBoxColumn  Binding="{Binding NotComing}" ClipboardContentBinding="{x:Null}" Header="Не прийшов"/>
+                        </DataGrid.Columns>
+                    </DataGrid>-->
+
+        </Grid>
+
+
+
+
+
+        <!--<HierarchicalDataTemplate.ItemTemplate  >
+                                <HierarchicalDataTemplate ItemsSource="{Binding Likar}">
+                                    <StackPanel Orientation="Horizontal" >
+                                        <TextBlock  FontSize="20" Text="{Binding docName}" VerticalAlignment="Center"/>
+                                        <CheckBox FontSize="20" ToolTip="Подсказка" IsChecked="{Binding docBool}" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                                    </StackPanel>
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>-->
+
+
+        <!--<DataTemplate  >
+                            <StackPanel>
+                                <TextBlock FontSize="25" Text="{Binding specf}"/>
+                                
+                                <StackPanel>
+                                    <TextBlock  FontSize="20" Text="{Binding Likar}" Margin="5,0,0,0" VerticalAlignment="Center"/>
+                                    
+                                    <StackPanel>
+                                        <TextBlock  FontSize="20" Text="{Binding docName}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                            </StackPanel>
+
+
+
+                            -->
+        <!--<TextBlock  FontSize="20" Text="{Binding docName}" VerticalAlignment="Center"/>-->
+        <!--
+                        </DataTemplate>-->
+
+
+
+
+
+
+        <!--<Viewbox Panel.ZIndex="0"  Opacity="0.5" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                    <Canvas  Width="200" Height="200" >
+                        <Polygon Points="100,25 125,0 200,25 125,50" Fill="LightSteelBlue" Canvas.Top="75"/>
+                        <Polygon Points="100,25 75,0 0,25 75,50" Fill="White"  Canvas.Top="75"/>
+
+                    </Canvas>
+                </Viewbox>-->
+
+        <!--<TreeView x:Name="Regis" ItemsSource="{Binding Path= ListOfDoc}" HorizontalAlignment="Left" Width="340">-->
+
+        <!--<TreeView.ItemTemplate >
+                        
+                        <HierarchicalDataTemplate DataType="{x:Type local1:regViewModel}" ItemsSource="{Binding Path= Likar}" >
+                            <TextBlock Text="{Binding Path= specf}"/>
+                           
+                            <HierarchicalDataTemplate.ItemTemplate >
+                                <DataTemplate >
+
+                                    <TextBlock Text="{Binding Path=regViewModel}"/>
+                                </DataTemplate>
+
+
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+
+                    </TreeView.ItemTemplate>-->
+        <!--</TreeView>-->
+    </Grid>
+
+
+
+</Window>
